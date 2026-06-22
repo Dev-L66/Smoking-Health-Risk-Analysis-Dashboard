@@ -1,3 +1,4 @@
+# 🚬 Smoking Health Risk Analysis Dashboard
 
 An interactive Power BI dashboard that analyzes smoking habits and associated health risk factors, providing insights into patient demographics, smoking behavior, and cardiovascular health indicators.
 
