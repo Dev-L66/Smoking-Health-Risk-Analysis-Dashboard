@@ -14,8 +14,10 @@ The project demonstrates data cleaning, transformation, DAX calculations, and in
 ---
 
 ## 📊 Dashboard Preview
+https://app.powerbi.com/view?r=eyJrIjoiOGZiN2IyYWEtZWQwOC00YjUyLTg0Y2YtZjVjNjAyZTRiMWI2IiwidCI6IjczMzFkMjQ5LTMwZGItNDAzNi1iZDUyLTM2NzdkNDU4YTY3MyJ9
 
-![Dashboard](images/dashboard.png)
+<img width="1348" height="767" alt="Screenshot 2026-06-22 203344" src="https://github.com/user-attachments/assets/2bf7b4ce-ade3-490b-a3a6-c28f5dbc6756" />
+
 
 ---
 
