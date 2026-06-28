@@ -1,0 +1,74 @@
+{
+  "version": "1.1.0",
+  "diagrams": [
+    {
+      "ordinal": 0,
+      "scrollPosition": {
+        "x": 0,
+        "y": 0
+      },
+      "nodes": [
+        {
+          "location": {
+            "x": 50,
+            "y": 61.473439568757726
+          },
+          "nodeIndex": "condition",
+          "nodeLineageTag": "2c6b4ae4-6a9e-4e94-92d3-0f46623031b7",
+          "size": {
+            "height": 104,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 50.066889016557951,
+            "y": 218.21387559064351
+          },
+          "nodeIndex": "health_dataset",
+          "nodeLineageTag": "34a16c8b-9958-4c62-962b-0a2288a90378",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 334.19404023161803,
+            "y": -50
+          },
+          "nodeIndex": "Image Dataset",
+          "nodeLineageTag": "bd8b9d57-0231-4934-9855-9395ab315c7f",
+          "size": {
+            "height": 152,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 334.2380446972731,
+            "y": 207.47786537694444
+          },
+          "nodeIndex": "Organs",
+          "nodeLineageTag": "e3f72d1e-0084-4cf3-8ed9-edcf16b928e3",
+          "size": {
+            "height": 128,
+            "width": 234
+          },
+          "zIndex": 0
+        }
+      ],
+      "name": "All tables",
+      "zoomValue": 85.416666666666657,
+      "pinKeyFieldsToTop": false,
+      "showExtraHeaderInfo": false,
+      "hideKeyFieldsWhenCollapsed": false,
+      "tablesLocked": false
+    }
+  ],
+  "selectedDiagram": "All tables",
+  "defaultDiagram": "All tables"
+}

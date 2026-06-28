@@ -1,0 +1,35 @@
+table Organs
+	lineageTag: e3f72d1e-0084-4cf3-8ed9-edcf16b928e3
+
+	column Organ
+		dataType: string
+		lineageTag: 5cf3c814-d2f2-4681-adcf-17df66802738
+		summarizeBy: none
+		sourceColumn: Organ
+
+		annotation SummarizationSetBy = Automatic
+
+	column Icon_URL
+		dataType: string
+		lineageTag: 042d315e-d2ad-4954-9474-fc58868eaffc
+		dataCategory: WebUrl
+		summarizeBy: none
+		sourceColumn: Icon_URL
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Organs = m
+		mode: import
+		source =
+				let
+				    Source = Csv.Document(File.Contents("C:\Users\hello\Downloads\Organs.csv"),[Delimiter=",", Columns=2, Encoding=1252, QuoteStyle=QuoteStyle.None]),
+				    #"Changed Type" = Table.TransformColumnTypes(Source,{{"Column1", type text}, {"Column2", type text}}),
+				    #"Promoted Headers" = Table.PromoteHeaders(#"Changed Type", [PromoteAllScalars=true]),
+				    #"Changed Type1" = Table.TransformColumnTypes(#"Promoted Headers",{{"Organ", type text}, {"Icon_URL", type text}})
+				in
+				    #"Changed Type1"
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

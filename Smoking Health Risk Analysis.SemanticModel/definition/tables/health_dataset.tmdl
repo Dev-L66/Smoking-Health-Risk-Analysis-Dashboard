@@ -1,0 +1,181 @@
+table health_dataset
+	lineageTag: 34a16c8b-9958-4c62-962b-0a2288a90378
+
+	measure 'vs Avg BMI' = ```
+			
+			VAR _CurrentBMI = AVERAGE(health_dataset[BMI])
+			VAR _OverallBMI = CALCULATE(AVERAGE(health_dataset[BMI]), ALL(health_dataset))
+			VAR _Diff = _CurrentBMI - _OverallBMI
+			
+			RETURN
+			SWITCH(
+			    TRUE(),
+			    _Diff > 0, UNICHAR(9650) & " " & FORMAT(_CurrentBMI, "0.0"),
+			    _Diff < 0, UNICHAR(9660) & " " & FORMAT(_CurrentBMI, "0.0"),
+			    FORMAT(_CurrentBMI, "0.0")
+			)
+			
+			```
+		lineageTag: 93f5c60b-567f-4b29-aec6-1376647d0d62
+
+	measure 'vs Avg Age' = ```
+			
+			VAR _CurrentAge = AVERAGE(health_dataset[Age])
+			VAR _OverallAge = CALCULATE(AVERAGE(health_dataset[Age]), ALL(health_dataset))
+			VAR _Diff = _CurrentAge - _OverallAge
+			
+			RETURN
+			SWITCH(
+			    TRUE(),
+			    _Diff > 0, UNICHAR(9650) & " " & FORMAT(_CurrentAge, "0.0"),
+			    _Diff < 0, UNICHAR(9660) & " " & FORMAT(_CurrentAge, "0.0"),
+			    FORMAT(_CurrentAge, "0.0")
+			)
+			
+			```
+		lineageTag: 1d9269db-5297-4cd6-9cca-366e9473e1d5
+
+	column Patient_ID
+		dataType: int64
+		formatString: 0
+		lineageTag: 5dc15a7c-87ef-4576-be55-80affe050802
+		summarizeBy: count
+		sourceColumn: Patient_ID
+
+		annotation SummarizationSetBy = Automatic
+
+	column Age
+		dataType: int64
+		formatString: 0
+		lineageTag: 5af845f2-caeb-4cc6-bfca-2eceef2a2202
+		summarizeBy: sum
+		sourceColumn: Age
+
+		annotation SummarizationSetBy = Automatic
+
+	column Gender
+		dataType: string
+		lineageTag: ea21ead4-695a-4912-8113-1ecd8ad3eaf9
+		summarizeBy: none
+		sourceColumn: Gender
+
+		annotation SummarizationSetBy = Automatic
+
+	column Smoking_Status
+		dataType: string
+		lineageTag: c2b10d1f-64cc-4d76-8d12-a35a91f7ebf6
+		summarizeBy: none
+		sourceColumn: Smoking_Status
+
+		annotation SummarizationSetBy = Automatic
+
+	column Years_of_Smoking
+		dataType: int64
+		formatString: 0
+		lineageTag: 0d84daa0-8f48-473e-8702-085b2ff0ed8e
+		summarizeBy: sum
+		sourceColumn: Years_of_Smoking
+
+		annotation SummarizationSetBy = Automatic
+
+	column Cigarettes_Per_Day
+		dataType: int64
+		formatString: 0
+		lineageTag: 62816f3c-17c1-483f-8824-17350e8c880d
+		summarizeBy: sum
+		sourceColumn: Cigarettes_Per_Day
+
+		annotation SummarizationSetBy = Automatic
+
+	column Organ
+		dataType: string
+		lineageTag: 82ea7b85-3d8a-40cb-b421-44d88645560f
+		summarizeBy: none
+		sourceColumn: Organ
+
+		annotation SummarizationSetBy = Automatic
+
+	column Organ_Condition
+		dataType: string
+		lineageTag: 426404d3-fc6b-408b-8e12-e1888c51d3b7
+		summarizeBy: none
+		sourceColumn: Organ_Condition
+
+		annotation SummarizationSetBy = Automatic
+
+	column BMI
+		dataType: double
+		lineageTag: a1e51508-778c-417c-88bc-ead96d9d9c76
+		summarizeBy: sum
+		sourceColumn: BMI
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column BP_Risk
+		dataType: string
+		lineageTag: 8c37cae4-624b-4e49-888d-bf74e678ad99
+		summarizeBy: none
+		sourceColumn: BP_Risk
+
+		annotation SummarizationSetBy = Automatic
+
+	column Cholesterol_Level
+		dataType: double
+		lineageTag: 66e48c98-3d6e-4817-8e62-ee70db9330a6
+		summarizeBy: sum
+		sourceColumn: Cholesterol_Level
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column Family_History_Risk
+		dataType: string
+		lineageTag: c09eb4a2-cd5a-4386-aeb8-39d59df4781b
+		summarizeBy: none
+		sourceColumn: Family_History_Risk
+
+		annotation SummarizationSetBy = Automatic
+
+	column Alcohol_Consumption
+		dataType: string
+		lineageTag: 997ae7ee-3593-4a03-8868-0b1bf4e6be10
+		summarizeBy: none
+		sourceColumn: Alcohol_Consumption
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Age Group' = ```
+			
+			SWITCH(
+			    TRUE(),
+			    health_dataset[Age] <= 28, "18–28",
+			    health_dataset[Age] <= 38, "29–38",
+			    health_dataset[Age] <= 48, "39–48",
+			    health_dataset[Age] <= 58, "49–58",
+			    health_dataset[Age] <= 68, "59–68",
+			    "69+"
+			)
+			
+			```
+		lineageTag: cf6ce8fd-3e8c-4cfb-aefd-d4628e49a4a1
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	partition health_dataset = m
+		mode: import
+		source =
+				let
+				    Source = Csv.Document(File.Contents("C:\Users\hello\Downloads\health_dataset.csv"),[Delimiter=",", Columns=13, Encoding=1252, QuoteStyle=QuoteStyle.None]),
+				    #"Promoted Headers" = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),
+				    #"Changed Type" = Table.TransformColumnTypes(#"Promoted Headers",{{"Patient_ID", Int64.Type}, {"Age", Int64.Type}, {"Gender", type text}, {"Smoking_Status", type text}, {"Years_of_Smoking", Int64.Type}, {"Cigarettes_Per_Day", Int64.Type}, {"Organ", type text}, {"Organ_Condition", type text}, {"BMI", type number}, {"BP_Risk", type text}, {"Cholesterol_Level", type number}, {"Family_History_Risk", type text}, {"Alcohol_Consumption", type text}})
+				in
+				    #"Changed Type"
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

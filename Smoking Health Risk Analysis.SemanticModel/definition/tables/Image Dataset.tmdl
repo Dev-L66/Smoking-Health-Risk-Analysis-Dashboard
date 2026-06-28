@@ -1,0 +1,42 @@
+table 'Image Dataset'
+	lineageTag: bd8b9d57-0231-4934-9855-9395ab315c7f
+
+	column Organ
+		dataType: string
+		lineageTag: 141a8636-96bf-4a2d-8bc8-182947a83f21
+		summarizeBy: none
+		sourceColumn: Organ
+
+		annotation SummarizationSetBy = Automatic
+
+	column Organ_Condition
+		dataType: string
+		lineageTag: 05a33963-d308-47bd-be86-7adbdf2b4066
+		summarizeBy: none
+		sourceColumn: Organ_Condition
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Image URL'
+		dataType: string
+		lineageTag: f23ad65a-6f67-4ec6-8688-1cc7aaa18273
+		summarizeBy: none
+		sourceColumn: Image URL
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'Image Dataset' = m
+		mode: import
+		source =
+				let
+				    Source = Csv.Document(File.Contents("C:\Users\hello\Downloads\Image Dataset.csv"),[Delimiter=",", Columns=3, Encoding=1252, QuoteStyle=QuoteStyle.None]),
+				    #"Changed Type" = Table.TransformColumnTypes(Source,{{"Column1", type text}, {"Column2", type text}, {"Column3", type text}}),
+				    #"Promoted Headers" = Table.PromoteHeaders(#"Changed Type", [PromoteAllScalars=true]),
+				    #"Changed Type1" = Table.TransformColumnTypes(#"Promoted Headers",{{"Organ", type text}, {"Organ_Condition", type text}, {"Image URL", type text}})
+				in
+				    #"Changed Type1"
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

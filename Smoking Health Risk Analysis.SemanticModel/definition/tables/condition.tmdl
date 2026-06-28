@@ -1,0 +1,26 @@
+table condition
+	lineageTag: 2c6b4ae4-6a9e-4e94-92d3-0f46623031b7
+
+	column Organ_Condition
+		dataType: string
+		lineageTag: 33173873-ebd2-4fe5-8f57-3dbe104fd6b0
+		summarizeBy: none
+		sourceColumn: Organ_Condition
+
+		annotation SummarizationSetBy = Automatic
+
+	partition condition = m
+		mode: import
+		source =
+				let
+				    Source = Csv.Document(File.Contents("C:\Users\hello\Downloads\condition.csv"),[Delimiter=",", Columns=1, Encoding=1252, QuoteStyle=QuoteStyle.None]),
+				    #"Changed Type" = Table.TransformColumnTypes(Source,{{"Column1", type text}}),
+				    #"Promoted Headers" = Table.PromoteHeaders(#"Changed Type", [PromoteAllScalars=true]),
+				    #"Changed Type1" = Table.TransformColumnTypes(#"Promoted Headers",{{"Organ_Condition", type text}})
+				in
+				    #"Changed Type1"
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

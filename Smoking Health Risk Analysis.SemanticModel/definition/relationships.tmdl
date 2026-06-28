@@ -1,0 +1,16 @@
+relationship AutoDetected_49929d4a-daf1-42de-8922-8e30fdc14687
+	fromColumn: 'Image Dataset'.Organ
+	toColumn: Organs.Organ
+
+relationship AutoDetected_d2fbfa6d-5b7a-467d-82b6-2149e17f57dc
+	fromColumn: health_dataset.Organ
+	toColumn: Organs.Organ
+
+relationship AutoDetected_d525b49f-7edd-41ba-a4d9-fd5c8b1e8e37
+	fromColumn: 'Image Dataset'.Organ_Condition
+	toColumn: condition.Organ_Condition
+
+relationship AutoDetected_6f59e6c6-f8cd-4f5f-bf31-3e6d8dc7c961
+	fromColumn: health_dataset.Organ_Condition
+	toColumn: condition.Organ_Condition
+
